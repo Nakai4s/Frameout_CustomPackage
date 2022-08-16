@@ -1,0 +1,7 @@
+{
+    "name": "com.frameout.custom_package",
+    "version": "0.1.0",
+    "displayName": "CustomPackage",
+    "description": "This is a test package",
+    "unity": "2021.3"
+}
