@@ -38,7 +38,7 @@ public class CsvReader
         IsCompleteLoad = false;
 
         try{
-            var csvHandle = await Addressables.LoadAssetAsync<TextAsset>(filename + ".csv").WithCancellation(token);
+            var csvHandle = await Addressables.LoadAssetAsync<TextAsset>(filename + ".csv");//.WithCancellation(token);
             var _csvFile = csvHandle as TextAsset;
 
             StringReader stringReader = new StringReader(_csvFile.text);

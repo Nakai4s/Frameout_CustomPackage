@@ -8,9 +8,9 @@ namespace Frameout{
 public class SoundManager : SingletonMonoBehaviour<SoundManager>
 {
     // ボリューム
-    [SerializeField, Range(0,1)] float m_masterVolume = 1f;
-    [SerializeField, Range(0,1)] float m_bgmVolume = 1f;
-    [SerializeField, Range(0,1)] float m_seVolume = 1f;
+    float m_masterVolume = 1f;
+    float m_bgmVolume = 1f;
+    float m_seVolume = 1f;
 
     // オーディオソース
     AudioSource m_bgmAudio, m_seAudio;

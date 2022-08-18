@@ -15,7 +15,7 @@ public abstract class BaseSequence : MonoBehaviour
     public static bool s_isCompleteInit { get; private set; } = false;
 
     // ルートパス
-    [SerializeField] string m_filePath;
+    const string m_filePath = "Packages/com.frameout.custom_package/UtilityManager.prefab";
 
     protected virtual async UniTaskVoid Awake(){
         var token = this.GetCancellationTokenOnDestroy();
