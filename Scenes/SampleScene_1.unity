@@ -446,6 +446,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 801b0f33a515d43d49a7db70d54c6e20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_filePath: Assets/_MyTemplate/UtilityManager.prefab
 --- !u!4 &1172573987
 Transform:
   m_ObjectHideFlags: 0

@@ -57,11 +57,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13966, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: New SceneTemplate
+  m_Name: CustomSceneTemplate
   m_EditorClassIdentifier: 
   templateScene: {fileID: 102900000, guid: 8c9cfa26abfee488c85f1582747f6a02, type: 3}
   templateName: Custom
-  description: CustomBaseSceneTemplate
+  description: 'Frameout''s CustomScene
+
+    Include below:
+
+'
   preview: {fileID: 2800000, guid: f94a8a2bda5be4d27a7171cf82827808, type: 3}
   dependencies:
   - dependency: {fileID: 2800000, guid: 3028dc075ba8c584d9bc7d1e0255e038, type: 3}

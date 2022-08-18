@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 1c98b6da42cf6412797224a34795753d
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - soundManager: {instanceID: 0}
+  - asyncSceneLoader: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
