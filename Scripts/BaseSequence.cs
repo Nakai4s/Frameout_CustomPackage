@@ -8,13 +8,8 @@ using System.Threading;
 namespace Frameout{
 public abstract class BaseSequence : MonoBehaviour
 {
-    /// <summary>
-    /// 初期化完了フラグ
-    /// </summary>
+    public bool m_isCompleteInit { get; private set; } = false;
     
-    public static bool s_isCompleteInit { get; private set; } = false;
-
-    // ルートパス
     const string m_filePath = "Packages/com.frameout.custom_package/UtilityManager.prefab";
 
     protected virtual async UniTaskVoid Awake(){
@@ -22,9 +17,9 @@ public abstract class BaseSequence : MonoBehaviour
         ScreenAspect.Init();
 
         // 初回のみオブジェクトを生成
-        if(!s_isCompleteInit){
+        if(!m_isCompleteInit){
             await Addressables.InstantiateAsync(m_filePath).WithCancellation(token);
-            s_isCompleteInit = true;
+            m_isCompleteInit = true;
         }
     }
 

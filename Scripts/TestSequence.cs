@@ -12,7 +12,7 @@ public class TestSequence : BaseSequence
     {
         var token = _cancellationTokenSource.Token;
         
-        await UniTask.WaitUntil(() => s_isCompleteInit, cancellationToken : token);
+        await UniTask.WaitUntil(() => m_isCompleteInit, cancellationToken : token);
         _cancellationTokenSource.Cancel();
         await UniTask.WaitUntil(() => SoundManager.s_isCompleteLoad, cancellationToken : token);
 
