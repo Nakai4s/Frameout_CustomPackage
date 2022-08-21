@@ -1,6 +1,7 @@
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 using System.Threading;
+using Frameout.Sound;
 
 namespace Frameout{
 public class TestSequence : BaseSequence

@@ -6,7 +6,7 @@ using Cysharp.Threading.Tasks;
 using System.Threading;
 using System;
 
-namespace Frameout{
+namespace Frameout.Csv{
 /// <summary>CSVファイルを扱うクラス</summary>
 public class CsvReader
 {

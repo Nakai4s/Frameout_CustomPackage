@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-namespace Frameout{
+namespace Frameout.Save{
 [Serializable]
 public class SaveData
 {

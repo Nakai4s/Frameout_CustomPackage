@@ -2,7 +2,7 @@ using System.IO;
 using UnityEngine;
 using System;
 
-namespace Frameout{
+namespace Frameout.Save{
 /// <summary>
 /// ローカルファイル保存
 /// </summary>

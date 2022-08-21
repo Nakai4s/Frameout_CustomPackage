@@ -4,7 +4,7 @@ using UnityEngine.AddressableAssets;
 using Cysharp.Threading.Tasks;
 using System.Threading;
 
-namespace Frameout{
+namespace Frameout.Sound{
 public class SoundManager : SingletonMonoBehaviour<SoundManager>
 {
     // ボリューム
