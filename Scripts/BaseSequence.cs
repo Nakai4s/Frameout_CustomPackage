@@ -1,7 +1,5 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.AddressableAssets;
-using System;
 using Cysharp.Threading.Tasks;
 using System.Threading;
 
@@ -10,15 +8,19 @@ public abstract class BaseSequence : MonoBehaviour
 {
     public bool m_isCompleteInit { get; private set; } = false;
     
-    const string m_filePath = "Packages/com.frameout.custom_package/UtilityManager.prefab";
+    const string m_filePath = "Packages/com.frameout.custom_package/Scripts/UtilityManager.prefab";
+
+    protected SaveManager _saveManager;
     
     protected virtual async UniTaskVoid Awake(){
         var token = this.GetCancellationTokenOnDestroy();
         ScreenAspect.Init();
+        
+        _saveManager = new SaveManager();
 
         // 初回のみオブジェクトを生成
         if(!m_isCompleteInit){
-            await Addressables.InstantiateAsync(m_filePath).WithCancellation(token);
+            await AssetLoader.Instantiate(m_filePath, token);
             m_isCompleteInit = true;
         }
     }
@@ -37,6 +39,28 @@ public abstract class BaseSequence : MonoBehaviour
             // フェードアウト
             await Fader.Instance.FadeOut(outTime, token);
         }
+    }
+
+    void OnDestroy()
+    {
+        Debug.Log("OnDestroy");
+        _saveManager.Save();
+    }
+
+
+    private void OnApplicationPause(bool pauseStatus)
+    {
+        if (pauseStatus) 
+        {
+            Debug.Log("OnApplicationPause");
+            _saveManager.Save();
+        }
+    }
+
+    private void OnApplicationQuit()
+    {
+        Debug.Log("OnApplicationQuit");
+        _saveManager.Save();
     }
 }
 }

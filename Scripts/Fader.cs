@@ -4,7 +4,7 @@ using Cysharp.Threading.Tasks;
 using System.Threading;
 
 namespace Frameout{
-    /// <summary>シーンを跨ぐフェードパネルを管理</summary>
+/// <summary>シーンを跨ぐフェードパネルを管理</summary>
 public class Fader : SingletonMonoBehaviour<Fader>
 {
     protected GameObject m_fadePanel;

@@ -1,31 +1,27 @@
 using System.IO;
 using UnityEngine;
-using System;
 
-namespace Frameout.Save{
-/// <summary>
-/// ローカルファイル保存
-/// </summary>
-public class SaveManager : SingletonMonoBehaviour<SaveManager>
+namespace Frameout{
+public class SaveManager
 {
     string m_filePath;
+    
+    public SaveData saveData;
+    
+    public static bool IsCompleteInit { get; private set; } = false;
 
-    [HideInInspector]
-    public SaveData m_data;
-    // 初期化完了フラグ
-    public bool IsInit { get; private set; } = false;
-
-    void Start()
+    public SaveManager()
     {
-        m_filePath = Application.persistentDataPath + "/" + ".savedata.json";
-        m_data = new SaveData();
+        m_filePath = Application.persistentDataPath + "/.savedata.json";
+        saveData = new SaveData();
 
         // ファイルが存在しない場合は初期化して生成
         if(!File.Exists(m_filePath))
         {
-            m_data.Initialize();
+            saveData.Clear();
             Save();
-            Debug.Log("Initialize Complete!");
+
+            IsCompleteInit = true;
         }
 
         Load();
@@ -33,7 +29,7 @@ public class SaveManager : SingletonMonoBehaviour<SaveManager>
     
     public void Save()
     {
-        string json = JsonUtility.ToJson(m_data);
+        string json = JsonUtility.ToJson(saveData);
         StreamWriter streamWriter = new StreamWriter(m_filePath);
         streamWriter.Write(json);
         streamWriter.Flush();
@@ -45,18 +41,7 @@ public class SaveManager : SingletonMonoBehaviour<SaveManager>
         StreamReader streamReader = new StreamReader(m_filePath);
         string text = streamReader.ReadToEnd();
         streamReader.Close();
-        m_data = JsonUtility.FromJson<SaveData>(text);
-    }
-
-    private void OnApplicationPause(bool pauseStatus)
-    {
-        if (pauseStatus) { Save(); }
-    }
-
-    private void OnApplicationQuit()
-    {
-        Debug.Log("on quit!");
-        Save();
+        saveData = JsonUtility.FromJson<SaveData>(text);
     }
 }
 }

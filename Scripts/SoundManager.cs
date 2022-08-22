@@ -1,10 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using Cysharp.Threading.Tasks;
 using System.Threading;
 
-namespace Frameout.Sound{
+namespace Frameout{
 public class SoundManager : SingletonMonoBehaviour<SoundManager>
 {
     // ボリューム
@@ -57,22 +56,14 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
         }
     }
 
-    async UniTask<bool> LoadSound(CancellationToken token){
+    async UniTask<bool> LoadSound(CancellationToken token=default){
         // bgm
         int bgm_index = 0;
-        var bgmHandle = await Addressables.LoadAssetsAsync<AudioClip>("bgm", obj =>
-        {
-            m_bgmIndex.Add(obj.name, bgm_index++);
-        }).WithCancellation(token);
-        m_bgmClips = bgmHandle as IList<AudioClip>;
+        m_bgmClips = await AssetLoader.LoadAssets<AudioClip>("bgm", obj => { m_bgmIndex.Add(obj.name, bgm_index++); }, token);
 
         // se
         int se_index = 0;
-        var seHandle = await Addressables.LoadAssetsAsync<AudioClip>("se", obj =>
-        {
-            m_seIndex.Add(obj.name, se_index++);
-        }).WithCancellation(token);
-        m_seClips = seHandle as IList<AudioClip>;
+        m_seClips = await AssetLoader.LoadAssets<AudioClip>("se", obj => { m_seIndex.Add(obj.name, se_index++); }, token);
 
         s_isCompleteLoad = true;
         
@@ -137,13 +128,9 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
             timer += Time.deltaTime;
             await UniTask.Yield(token);
             }
-            
         }
     }
     
-    /// <summary>
-    /// BGM再生
-    /// </summary>
     public async UniTask PlayBgm(int index, float inTime=1f, float outTime=1f, CancellationToken token=default){
 
         await FadeOut(outTime, token);
@@ -156,9 +143,6 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
         await FadeIn(inTime, token);
     }
 
-    /// <summary>
-    /// BGM再生
-    /// </summary>
     public async UniTask PlayBgmByName(string name, float inTime=1f, float outTime=1f, CancellationToken token=default){
         await PlayBgm(GetBgmIndex(name), inTime, outTime, token);
     }
@@ -168,17 +152,11 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
         m_bgmAudio.clip = null;
     }
 
-    /// <summary>
-    /// SE再生
-    /// </summary>
     public void PlaySe(int index){
         index = Mathf.Clamp(index, 0, m_seClips.Count-1);
         m_seAudio.PlayOneShot(m_seClips[index], SeVolume * MasterVolume);
     }
 
-    /// <summary>
-    /// SE再生
-    /// </summary>
     public void PlaySeByName(string name){
         PlaySe(GetSeIndex(name));
     }
@@ -190,7 +168,6 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
 
     void OnApplicationQuit()
     {
-        Debug.Log("cancel!");
         _cancellationTokenSource.Cancel();
     }
 }
